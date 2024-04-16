@@ -228,6 +228,7 @@ export interface NoteEntity {
   'is_conflict'?: number;
   'is_shared'?: number;
   'is_todo'?: number;
+  'is_voice'?: number;
   'latitude'?: number;
   'longitude'?: number;
   'markup_language'?: number;

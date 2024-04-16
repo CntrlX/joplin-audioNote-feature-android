@@ -1440,6 +1440,7 @@ class NoteScreenComponent extends BaseScreenComponent<Props, State> implements B
 		const theme = themeStyle(this.props.themeId);
 		const note: NoteEntity = this.state.note;
 		const isTodo = !!Number(note.is_todo);
+		const isVoice = !!Number(note.is_voice);
 
 		if (this.state.showCamera) {
 			return <CameraView themeId={this.props.themeId} style={{ flex: 1 }} onPhoto={this.cameraView_onPhoto} onCancel={this.cameraView_onCancel} />;
@@ -1569,7 +1570,7 @@ class NoteScreenComponent extends BaseScreenComponent<Props, State> implements B
 		const showSaveButton = false; // this.state.mode === 'edit' || this.isModified() || this.saveButtonHasBeenShown_;
 		const saveButtonDisabled = true;// !this.isModified();
 
-		const titleContainerStyle = isTodo ? this.styles().titleContainerTodo : this.styles().titleContainer;
+		const titleContainerStyle = isTodo ? (isVoice ? this.styles().titleContainerTodo : this.styles().titleContainerTodo) : this.styles().titleContainer;
 
 		const dueDate = Note.dueDateObject(note);
 

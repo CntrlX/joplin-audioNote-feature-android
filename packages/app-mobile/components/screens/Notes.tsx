@@ -155,7 +155,7 @@ class NotesScreenComponent extends BaseScreenComponent<any> {
 		});
 	}
 
-	public newNoteNavigate = async (folderId: string, isTodo: boolean) => {
+	public newNoteNavigate = async (folderId: string, isTodo: boolean, isVoice: boolean) => {
 		try {
 			const newNote = await Note.save({
 				parent_id: folderId,
@@ -164,7 +164,8 @@ class NotesScreenComponent extends BaseScreenComponent<any> {
 
 			this.props.dispatch({
 				type: 'NAV_GO',
-				routeName: 'Note',
+				routeName: isVoice? 'Voice':'Note',
+
 				noteId: newNote.id,
 			});
 		} catch (error) {
@@ -257,7 +258,20 @@ class NotesScreenComponent extends BaseScreenComponent<any> {
 					onPress: async () => {
 						const folderId = await getTargetFolderId();
 						const isTodo = true;
-						void this.newNoteNavigate(folderId, isTodo);
+						const isVoice = false;
+						void this.newNoteNavigate(folderId, isTodo, isVoice);
+					},
+					color: '#9b59b6',
+					icon: 'checkbox-outline',
+				});
+
+				buttons.push({
+					label: _('New voice memo'),
+					onPress: async () => {
+						const folderId = await getTargetFolderId();
+						const isTodo = true;
+						const isVoice = true;
+						void this.newNoteNavigate(folderId, isTodo, isVoice);
 					},
 					color: '#9b59b6',
 					icon: 'checkbox-outline',
@@ -268,7 +282,8 @@ class NotesScreenComponent extends BaseScreenComponent<any> {
 					onPress: async () => {
 						const folderId = await getTargetFolderId();
 						const isTodo = false;
-						void this.newNoteNavigate(folderId, isTodo);
+						const isVoice = false;
+						void this.newNoteNavigate(folderId, isTodo, isVoice);
 					},
 					color: '#9b59b6',
 					icon: 'document',
